@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+#Edddy Yojan Chavez Gutierrez
+#Diego Andres Gutierrez Flores
+#Alex Rodolfo Sanchez Pereyra
+#Gabriel Diaz Callisalla
+# Constantes
+half_life = 5730  # Vida media de Carbono-14 en años
+remaining_fraction = 0.7745  # Porcentaje restante de Carbono-14
+error_fraction = 0.001  # Error supuesto en la medición del porcentaje
+
+# Paso 1: Calcular la constante k
+k = np.log(0.5) / half_life
+
+# Paso 2: Calcular el tiempo t para la fracción restante de Carbono-14
+t = np.log(remaining_fraction) / k
+
+# Paso 3: Calcular el error de propagación para el tiempo t
+error_t = abs((1 / (remaining_fraction * k))) * error_fraction
+
+# Crear un DataFrame para mostrar los resultados
+df = pd.DataFrame({
+    'Parámetro': ['Constante de decaimiento (k)', 'Tiempo (t)', 'Error en tiempo (t)'],
+    'Valor': [k, t, error_t],
+    'Unidad': ['1/año', 'años', 'años']
+})
+
+# Mostrar resultados
+print("Resultados del problema de decaimiento de Carbono-14:")
+print(df)
+
+# Redondear el tiempo t a años más cercanos
+t_rounded = round(t)
+print(f"\nEl tiempo estimado para las huellas es de aproximadamente {t_rounded} años.")
